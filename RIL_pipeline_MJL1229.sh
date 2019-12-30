@@ -18,12 +18,6 @@ samtools index bam_align.bam
 samtools index bam_rmdup.bam
 samtools index bam_firsts.bam
 
-#!/bin/bash
-
-samtools index bam_align.bam
-samtools index bam_rmdup.bam
-samtools index bam_firsts.bam
-
 names="1 2 3"
 
 for name in $names
@@ -50,6 +44,7 @@ do
 	perl populate_snp_matrix.pl $name.panel < ${names:1:2}.mpileup > ${names:1:2}.ahmm_in.panel
 done
 
+##### 3rd Chromosome
 chrom3="3L 3R"
 for name in $chrom3
 do
