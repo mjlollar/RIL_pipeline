@@ -1,6 +1,9 @@
 # RIL_pipeline
 
-Shell script to align Recombinant Inbred Line sequences to D. melanogaster reference (v5.9) and perform ancestry inferences across genome using Ancestry_HMM[1].
+Shell script to: 
+ - Align Recombinant Inbred Line sequences to D. melanogaster reference (v5.9). Illumina Nova-Seq (2x150bp) paired-end reads.
+ - Process bams, obtain SNP information, generate ahmm files
+ - Perform ancestry inferences using Ancestry_HMM[1].
 
 
 References:
