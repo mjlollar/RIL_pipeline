@@ -5,7 +5,7 @@ Shell script to:
  - Process bams, obtain SNP information, generate ahmm files
  - Perform ancestry inferences using Ancestry_HMM[1].
 
-Script requirements:
+Requirements:
  - Genome version 5.9.
  - samtools version 1.6
  - bwa version 0.7.17-r1188
