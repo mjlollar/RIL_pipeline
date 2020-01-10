@@ -4,8 +4,8 @@
 for RIL in $(cat RIL_list.txt)
 do
 	##### Unzip fastq file
-	gunzip ${RIL}_R1.fastq.gz
-	gunzip ${RIL}_R2.fastq.gz
+	zcat ${RIL}_R1.fastq.gz > ${RIL}_R1.fastq
+	zcat ${RIL}_R2.fastq.gz > ${RIL}_R2.fastq
 
 	##### Align each read
 	bwa mem dmel_ref_r5.9.fasta ${RIL}_R1.fastq ${RIL}_R2.fastq | /mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools sort -o bam_align.bam
@@ -36,20 +36,20 @@ do
 
 	##### Extract snps and populate the matrix
 	##### X Chromosome
-	perl mnt/sas0/AD/mlollar/bin/populate_snp_matrix.pl X.panel < 1.mpileup > X.ahmm_in.panel
+	perl populate_snp_matrix.pl X.panel < 1.mpileup > X.ahmm_in.panel
 	
 	##### 2nd Chromosome
 	chrom2="2L 2R"
 	for name in $chrom2
 	do
-		perl mnt/sas0/AD/mlollar/bin/populate_snp_matrix.pl ${name}.panel < 2.mpileup > ${name}.ahmm_in.panel
+		perl populate_snp_matrix.pl ${name}.panel < 2.mpileup > ${name}.ahmm_in.panel
 	done
 	
 	##### 3rd Chromosome
 	chrom3="3L 3R"
 	for name in $chrom3
 	do
-		perl /mnt/sas0/AD/mlollar/bin/populate_snp_matrix.pl ${name}.panel < 3.mpileup > ${name}.ahmm_in.panel
+		perl populate_snp_matrix.pl ${name}.panel < 3.mpileup > ${name}.ahmm_in.panel
 	done
 	
 	##### Create the ahmm sample file
@@ -69,10 +69,8 @@ do
 	##### Remove unzipped file to conserve disk space
 	rm ${RIL}_R1.fastq
 	rm ${RIL}_R2.fastq
-	##### Remove pileups to avoid overwrite prompt
+	##### Remove Pileups to avoid overwrite prompt
 	rm 1.mpileup
 	rm 2.mpileup
 	rm 3.mpileup
-
 done
-
