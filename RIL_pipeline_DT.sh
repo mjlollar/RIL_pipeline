@@ -49,7 +49,7 @@ do
 	chrom3="3L 3R"
 	for name in $chrom3
 	do
-		perl mnt/sas0/AD/mlollar/bin/populate_snp_matrix.pl ${name}.panel < 3.mpileup > ${name}.ahmm_in.panel
+		perl /mnt/sas0/AD/mlollar/bin/populate_snp_matrix.pl ${name}.panel < 3.mpileup > ${name}.ahmm_in.panel
 	done
 	
 	##### Create the ahmm sample file
@@ -69,6 +69,10 @@ do
 	##### Remove unzipped file to conserve disk space
 	rm ${RIL}_R1.fastq
 	rm ${RIL}_R2.fastq
+	##### Remove pileups to avoid overwrite prompt
+	rm 1.mpileup
+	rm 2.mpileup
+	rm 3.mpileup
 
 done
 
