@@ -1,6 +1,12 @@
 #!/bin/bash
 
 
+
+####### ATTENTION!!!!! THIS FILE HAS INCORRECT INDEXES AND WILL NOT RUN CORRECTLY.
+
+###### SEE RIL_pipeline_DT.sh FOR CORRECT SCRIPT.
+
+
 ##### Added alternate check for file exists for fastqs, haven't qc'd but should be fine.
 
 for RIL in $(cat RIL_list.txt)
