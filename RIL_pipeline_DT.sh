@@ -21,36 +21,34 @@ do
 	/mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools index bam_rmdup.bam
 	/mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools index bam_firsts.bam
 	
-	names="1 2 3"
+	# Each number in names corresponds to chromosome region, respectively: X, 2L, 2R, 3L, 3R
+	names="4 3 7 5 8"
 	
 	for name in $names
 	do
 		/mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools mpileup -q 20 -r $name bam_align.bam bam_rmdup.bam bam_firsts.bam | gzip - > ${name}.mpileup.gz
 	done
 
-
-	##### unzip pileups
-	gunzip 1.mpileup.gz
-	gunzip 2.mpileup.gz
-	gunzip 3.mpileup.gz
-
 	##### Extract snps and populate the matrix
 	##### X Chromosome
-	perl populate_snp_matrix.pl X.panel < 1.mpileup > X.ahmm_in.panel
+	gunzip 4.mpileup.gz
+	perl populate_snp_matrix.pl X.panel < 4.mpileup > X.ahmm_in.panel
 	
-	##### 2nd Chromosome
-	chrom2="2L 2R"
-	for name in $chrom2
-	do
-		perl populate_snp_matrix.pl ${name}.panel < 2.mpileup > ${name}.ahmm_in.panel
-	done
+	##### 2L
+	gunzip 3.mpileup.gz
+	perl populate_snp_matrix.pl 2L.panel < 3.mpileup > 2L.ahmm_in.panel
 	
-	##### 3rd Chromosome
-	chrom3="3L 3R"
-	for name in $chrom3
-	do
-		perl populate_snp_matrix.pl ${name}.panel < 3.mpileup > ${name}.ahmm_in.panel
-	done
+	##### 2R
+	gunzip 7.mpileup.gz
+	perl populate_snp_matrix.pl 2R.panel < 7.mpileup > 2R.ahmm_in.panel
+	
+	##### 3L
+	gunzip 5.mpileup.gz
+	perl populate_snp_matrix.pl 3L.panel < 5.mpileup > 3L.ahmm_in.panel
+
+	##### 3R
+	gunzip 8.mpileup.gz
+	perl populate_snp_matrix.pl 3R.panel < 8.mpileup.gz > 3R.ahmm_in.panel
 	
 	##### Create the ahmm sample file
 	ls bam_align.bam bam_rmdup.bam bam_firsts.bam | perl -pi -e 's/\n/\t2\n/' > ahmm_in.samples
@@ -70,7 +68,9 @@ do
 	rm ${RIL}_R1.fastq
 	rm ${RIL}_R2.fastq
 	##### Remove Pileups to avoid overwrite prompt
-	rm 1.mpileup
-	rm 2.mpileup
 	rm 3.mpileup
+	rm 4.mpileup
+	rm 5.mpileup
+	rm 7.mpileup
+	rm 8.mpileup
 done
