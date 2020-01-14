@@ -21,7 +21,7 @@ do
 	/mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools index bam_rmdup.bam
 	/mnt/sas0/AD/mlollar/bin/samtools-1.6/samtools index bam_firsts.bam
 	
-	# Each number in names corresponds to chromosome region, respectively: X, 2L, 2R, 3L, 3R
+	# Each number in names corresponds to chromosome region as listed in Dros. ref 5.9, respectively: X, 2L, 2R, 3L, 3R
 	names="4 3 7 5 8"
 	
 	for name in $names
@@ -67,6 +67,11 @@ do
 	##### Remove unzipped file to conserve disk space
 	rm ${RIL}_R1.fastq
 	rm ${RIL}_R2.fastq
+	
+	##### Save and tar mpileups
+	tar cf ${RIL}.mpileup.tar *.mpileup
+	mv ${RIL}.mpileup.tar ../RIL_mpileups/${RIL}.mpileup.tar
+	
 	##### Remove Pileups to avoid overwrite prompt
 	rm 3.mpileup
 	rm 4.mpileup
@@ -74,3 +79,5 @@ do
 	rm 7.mpileup
 	rm 8.mpileup
 done
+
+
