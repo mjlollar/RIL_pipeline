@@ -48,7 +48,7 @@ do
 
 	##### 3R
 	gunzip 8.mpileup.gz
-	perl populate_snp_matrix.pl 3R.panel < 8.mpileup.gz > 3R.ahmm_in.panel
+	perl populate_snp_matrix.pl 3R.panel < 8.mpileup > 3R.ahmm_in.panel
 	
 	##### Create the ahmm sample file
 	ls bam_align.bam bam_rmdup.bam bam_firsts.bam | perl -pi -e 's/\n/\t2\n/' > ahmm_in.samples
