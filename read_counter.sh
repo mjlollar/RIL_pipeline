@@ -5,7 +5,7 @@
 
 for file in *_R1.fastq.gz
 do
-	##### For decompressed files use a=$(echo $(cat $file|wc -l)/4|bc)
+  ##### For decompressed files use a=$(echo $(cat $file|wc -l)/4|bc)
   a=$(echo $(zcat < $file|wc -l)/4|bc)
 	echo $a $file >> R1_readcounts.txt
 done 
